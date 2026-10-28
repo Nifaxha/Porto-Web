@@ -1,0 +1,26 @@
+services:
+  web:
+    build: .
+    image: portofolio-laravel
+    container_name: portofolio-laravel
+    ports:
+      - "${APP_PORT:-8080}:80"
+    environment:
+      APP_NAME: "${APP_NAME:-Portofolio}"
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_URL: "${APP_URL:-http://localhost:8080}"
+      # Kosongkan agar dibuat otomatis saat pertama jalan dan disimpan di volume "storage".
+      APP_KEY: "${APP_KEY:-}"
+      APP_LOCALE: id
+      APP_FALLBACK_LOCALE: id
+      LOG_CHANNEL: stderr
+      SESSION_DRIVER: file
+      CACHE_STORE: file
+      QUEUE_CONNECTION: sync
+    volumes:
+      - storage:/var/www/html/storage
+    restart: unless-stopped
+
+volumes:
+  storage:
